@@ -1,302 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vasu Vinaik - Portfolio</title>
-<style>
-    /* RESET */
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-        font-family: 'Segoe UI', Roboto, sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
-        scroll-behavior: smooth;
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    /* NAVBAR */
-    nav {
-        position: fixed;
-        width: 100%;
-        top:0; left:0;
-        background: rgba(15,23,42,0.95);
-        display:flex;
-        justify-content:center;
-        gap:40px;
-        padding:16px 0;
-        z-index: 100;
-        border-bottom: 1px solid rgba(148,163,184,0.1);
-    }
-
-    nav a {
-        font-weight: 600;
-        color: #94a3b8;
-        transition: color 0.3s ease;
-    }
-
-    nav a:hover { color:#60a5fa; }
-
-    /* HERO SECTION */
-    header {
-        height:100vh;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        text-align:center;
-        padding:0 20px;
-        position:relative;
-    }
-
-    header h1 {
-        font-size:4em;
-        font-weight:800;
-        background: linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);
-        -webkit-background-clip:text;
-        -webkit-text-fill-color:transparent;
-        animation: fadeInUp 1s ease;
-    }
-
-    header p.tagline {
-        margin-top:16px;
-        font-size:1.5em;
-        color:#94a3b8;
-        animation: fadeInUp 1s ease 0.3s backwards;
-    }
-
-    /* ABOUT */
-    .about {
-        max-width:900px;
-        margin:80px auto;
-        padding:0 20px;
-        text-align:center;
-    }
-
-    .about h2 {
-        font-size:2.5em;
-        font-weight:700;
-        margin-bottom:24px;
-        color:#f1f5f9;
-    }
-
-    .about p {
-        font-size:1.1em;
-        color:#cbd5e0;
-        line-height:1.8;
-    }
-
-    /* PROJECTS */
-    .projects-section {
-        padding:60px 20px;
-        background:#0f172a;
-        max-width:1400px;
-        margin:0 auto;
-    }
-
-    .section-title {
-        text-align:center;
-        font-size:2.5em;
-        font-weight:700;
-        margin-bottom:60px;
-        color:#f1f5f9;
-    }
-
-    .projects {
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
-        gap:40px;
-    }
-
-    .project-card {
-        background: rgba(30,41,59,0.8);
-        backdrop-filter: blur(10px);
-        border-radius:16px;
-        padding:32px;
-        border:1px solid rgba(148,163,184,0.1);
-        transition:all 0.4s ease;
-        position:relative;
-        overflow:hidden;
-    }
-
-    .project-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(59,130,246,0.3);
-        box-shadow:0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .project-card::before {
-        content:'';
-        position:absolute;
-        top:0; left:0; right:0;
-        height:4px;
-        background: linear-gradient(90deg,#3b82f6,#8b5cf6);
-        transform:scaleX(0);
-        transition: transform 0.4s ease;
-    }
-
-    .project-card:hover::before { transform:scaleX(1); }
-
-    .project-icon {
-        font-size:36px;
-        margin-bottom:16px;
-    }
-
-    .project-card h3 {
-        font-size:1.6em;
-        font-weight:700;
-        margin-bottom:12px;
-        color:#f1f5f9;
-    }
-
-    .project-card p {
-        color:#cbd5e0;
-        margin-bottom:20px;
-        line-height:1.6;
-    }
-
-    .tech-stack { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
-
-    .tech-tag {
-        background: rgba(59,130,246,0.15);
-        color:#93c5fd;
-        padding:6px 12px;
-        border-radius:6px;
-        font-weight:600;
-        font-size:0.85em;
-        border:1px solid rgba(59,130,246,0.3);
-        transition:all 0.3s ease;
-    }
-
-    .tech-tag:hover { background: rgba(59,130,246,0.25); transform:translateY(-2px); }
-
-    .btn {
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-        color:white;
-        padding:12px 28px;
-        border-radius:8px;
-        font-weight:600;
-        transition:all 0.3s ease;
-    }
-
-    .btn:hover { transform:translateX(4px); box-shadow:0 6px 20px rgba(59,130,246,0.5); }
-
-    .btn::after { content:'→'; transition:transform 0.3s ease; }
-
-    .btn:hover::after { transform:translateX(4px); }
-
-    /* FOOTER */
-    footer {
-        text-align:center;
-        padding:60px 20px;
-        margin-top:60px;
-        border-top:1px solid rgba(148,163,184,0.1);
-        background: rgba(15,23,42,0.95);
-    }
-
-    .contact-info a { color:#60a5fa; font-weight:500; transition:color 0.3s ease; }
-    .contact-info a:hover { color:#93c5fd; }
-
-    .social-links { display:flex; justify-content:center; gap:32px; margin-top:24px; }
-    .social-links a {
-        color:#94a3b8;
-        padding:10px 18px;
-        border-radius:8px;
-        border:1px solid rgba(148,163,184,0.1);
-        transition:all 0.3s ease;
-        font-weight:600;
-    }
-    .social-links a:hover { color:#60a5fa; background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); transform:translateY(-2px); }
-
-    /* ANIMATIONS */
-    @keyframes fadeInUp {
-        from { opacity:0; transform:translateY(30px); }
-        to { opacity:1; transform:translateY(0); }
-    }
-
-    /* RESPONSIVE */
-    @media(max-width:768px){
-        header h1 { font-size:3em; }
-        header p.tagline { font-size:1.2em; }
-        .projects { grid-template-columns:1fr; gap:30px; }
-        .about h2 { font-size:2em; }
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasu Vinaik - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-links a {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .contact-links a:hover {
+            background: #764ba2;
+            transform: translateY(-3px);
+        }
+        
+        .projects {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+            padding-left: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .project-title {
+            font-size: 1.8em;
+            color: #333;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background: #48bb78;
+        }
+        
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+        
+        .project-description {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .features {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<!-- NAVBAR -->
-<nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-</nav>
-
-<!-- HERO -->
-<header>
-    <h1>Vasu Vinaik</h1>
-    <p class="tagline">Backend Developer & Data Analyst</p>
-</header>
-
-<!-- ABOUT -->
-<section id="about" class="about">
-    <h2>About Me</h2>
-    <p>
-        I’m a backend developer and data analyst passionate about building scalable APIs and transforming raw data into actionable business insights.  
-        Skilled in Python, FastAPI, SQL, Power BI, and creating robust, maintainable systems.  
-        Always eager to learn new technologies and solve challenging problems.
-    </p>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="projects-section">
-    <h2 class="section-title">Featured Projects</h2>
-    <div class="projects">
-        <div class="project-card">
-            <div class="project-icon">💻</div>
-            <h3>Product Management System</h3>
-            <p>Built a robust backend API with FastAPI for product management. Features include secure JWT authentication, password hashing, RESTful CRUD endpoints, SQLAlchemy ORM, and comprehensive pytest testing suite.</p>
-            <div class="tech-stack">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">SQLite</span>
-                <span class="tech-tag">SQLAlchemy</span>
-                <span class="tech-tag">Pytest</span>
-                <span class="tech-tag">JWT</span>
+    <div class="container">
+        <header>
+            <h1>Vasu Vinaik</h1>
+            <p class="tagline">Backend Developer | Python | FastAPI | Web Development</p>
+            <div class="contact-links">
+                <a href="https://github.com/Vasu-Vinaik123" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a>
+                <a href="mailto:your.email@example.com">Email</a>
             </div>
-            <a href="https://github.com/Vasu-Vinaik123/Product-Management-System" class="btn" target="_blank">View Project</a>
-        </div>
-        <div class="project-card">
-            <div class="project-icon">📊</div>
-            <h3>Data Analysis Portfolio</h3>
-            <p>A collection of data analysis projects including Power BI dashboards for call center analytics, SQL-driven sales analysis for classic cars and coffee shops. Demonstrates skills in KPI tracking, data cleaning, DAX calculations, and transforming raw data into actionable business insights.</p>
-            <div class="tech-stack">
-                <span class="tech-tag">SQL</span>
-                <span class="tech-tag">Power BI</span>
-                <span class="tech-tag">DAX</span>
-                <span class="tech-tag">Data Visualization</span>
-                <span class="tech-tag">Business Analytics</span>
+        </header>
+        
+        <section class="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">🛍️ Product Management System</h3>
+                    <div class="project-links">
+                        <a href="https://product-management-system.onrender.com" target="_blank" class="btn">Live Demo</a>
+                        <a href="https://product-management-system.onrender.com/docs" target="_blank" class="btn btn-secondary">API Docs</a>
+                        <a href="https://github.com/Vasu-Vinaik123/Product-Management-System" target="_blank" class="btn">GitHub</a>
+                    </div>
+                </div>
+                
+                <p class="project-description">
+                    A comprehensive full-stack application designed for managing products with complete front-end interface 
+                    for sellers to handle their inventory and a robust backend API for managing product data efficiently.
+                </p>
+                
+                <ul class="features">
+                    <li><strong>User Authentication:</strong> Secure login and signup system with JWT tokens</li>
+                    <li><strong>Product Management:</strong> Intuitive interface to create, read, update, and delete product listings</li>
+                    <li><strong>RESTful API:</strong> Complete CRUD endpoints with comprehensive Swagger documentation</li>
+                    <li><strong>Responsive Design:</strong> Seamless experience across desktop and mobile devices</li>
+                    <li><strong>Docker Deployment:</strong> Containerized application deployed on Render</li>
+                </ul>
+                
+                <div class="tech-stack">
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SQLAlchemy</span>
+                    <span class="tech-tag">SQLite</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">HTML/CSS/JS</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">Pytest</span>
+                </div>
             </div>
-            <a href="https://github.com/Vasu-Vinaik123/Data-Analysis-Portfolio" class="btn" target="_blank">View Project</a>
-        </div>
+            
+            <!-- Add more projects here -->
+            
+        </section>
     </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="contact">
-    <div class="contact-info">
-        <p>Email: <a href="mailto:vasuvinaik123@gmail.com">vasuvinaik123@gmail.com</a></p>
-    </div>
-    <div class="social-links">
-        <a href="https://github.com/Vasu-Vinaik123" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/vasu-vinaik" target="_blank">LinkedIn</a>
-    </div>
-</footer>
-
 </body>
 </html>
